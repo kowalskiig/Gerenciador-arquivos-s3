@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+
+    h2:
+      console:
+        enabled: true
+        path: /h2-console
+
+    jpa:
+      show-sql: true
+      properties:
+        hibernate:
+          format_sql: true
+
+    aws:
+      acess_key_id: ${AWS_KEY:empty}
+      acess_secret_acess_key: ${AWS_KEY:empty}
+
+    s3:
+      bucket: ${BUCKET_NAME:empty}
+      region: ${BUCKET_REGION:empty}
