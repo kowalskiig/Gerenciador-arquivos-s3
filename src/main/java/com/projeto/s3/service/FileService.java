@@ -23,7 +23,7 @@ public class FileService {
 
     @Transactional
     public FileResponseDTO uploadFile(MultipartFile file, String fileName) {
-        URL url = s3Service.uploadFile(file);
+        URL url = s3Service.uploadFile(file, fileName);
         File enity = new File(
                 url.toString(),
                 fileName);

@@ -26,11 +26,11 @@ public class S3Service {
     @Value("${s3.bucket}")
     private String bucketName;
 
-    public URL uploadFile(MultipartFile file) {
+    public URL uploadFile(MultipartFile file, String name) {
         try {
             String originalName = file.getOriginalFilename();
             String extension = FilenameUtils.getExtension(originalName);
-            String fileName = Instant.now().toString() + "." + extension;
+            String fileName = name + Instant.now().toString() + "." + extension;
 
             InputStream is = file.getInputStream();
             String contentType = file.getContentType();
@@ -42,11 +42,13 @@ public class S3Service {
         }
     }
 
+
     private URL uploadFile(InputStream is, String fileName, String contentType) {
         ObjectMetadata meta = new ObjectMetadata();
         LOG.info("Upload start");
         s3client.putObject(bucketName, fileName, is, meta);
         LOG.info("Upload end");
         return s3client.getUrl(bucketName, fileName);
+
     }
 }
