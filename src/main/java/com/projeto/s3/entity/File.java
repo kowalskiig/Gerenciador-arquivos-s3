@@ -17,11 +17,10 @@ public class File {
 
     public File(){}
 
-    public File(Long id, String fileUrl, String fileName, Instant uploadAt) {
-        this.id = id;
+    public File(String fileUrl, String fileName) {
         this.fileUrl = fileUrl;
         this.fileName = fileName;
-        this.uploadAt = uploadAt;
+        uploadAt = Instant.now();
     }
 
     public Long getId() {

@@ -1,7 +1,5 @@
 package com.projeto.s3.dto;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -9,19 +7,19 @@ public class FileDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private MultipartFile file;
+    private String fileName;
 
     public FileDTO(){
     }
 
-    public FileDTO(MultipartFile file){
-        this.file = file;
+    public FileDTO(String fileName){
+        this.fileName = fileName;
     }
 
-    public MultipartFile getFile() {
-        return file;
+    public String getFileName() {
+        return fileName;
     }
-    public void setFile(MultipartFile file) {
-        this.file = file;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }
