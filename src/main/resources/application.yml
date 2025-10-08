@@ -15,10 +15,10 @@ spring:
         hibernate:
           format_sql: true
 
-    aws:
-      acess_key_id: ${AWS_KEY:empty}
-      acess_secret_acess_key: ${AWS_KEY:empty}
+aws:
+  access_key_id: ${AWS_KEY:empty}
+  secret_access_key: ${AWS_SECRET_KEY:empty}
 
-    s3:
-      bucket: ${BUCKET_NAME:empty}
-      region: ${BUCKET_REGION:empty}
+s3:
+  bucket: ${BUCKET_NAME:empty}
+  region: ${BUCKET_REGION:empty}
