@@ -25,13 +25,13 @@ public class FileService {
     public FileResponseDTO uploadFile(MultipartFile file, String fileName) {
         UpdloadResult result = s3Service.uploadFile(file, fileName);
 
-        File enity = new File(
+        File entity = new File(
                 result.fileUrl().toString(),
                 result.fileName()
         );
 
-        enity = fileRepository.save(enity);
-        return FileMapper.toDto(enity);
+        entity = fileRepository.save(entity);
+        return FileMapper.toDto(entity);
     }
 
     @Transactional
