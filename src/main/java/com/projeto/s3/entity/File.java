@@ -38,4 +38,12 @@ public class File {
     public Instant getUploadAt() {
         return uploadAt;
     }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
+    }
 }

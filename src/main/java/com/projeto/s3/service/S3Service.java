@@ -2,6 +2,7 @@ package com.projeto.s3.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.projeto.s3.service.model.UpdloadResult;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,7 @@ public class S3Service {
     @Value("${s3.bucket}")
     private String bucketName;
 
-    public URL uploadFile(MultipartFile file, String name) {
+    public UpdloadResult uploadFile(MultipartFile file, String name) {
         try {
             String originalName = file.getOriginalFilename();
             String extension = FilenameUtils.getExtension(originalName);
@@ -35,11 +36,19 @@ public class S3Service {
             InputStream is = file.getInputStream();
             String contentType = file.getContentType();
 
-            return uploadFile(is, fileName, contentType);
+            URL url = uploadFile(is, fileName, contentType);
+            return new UpdloadResult(fileName, url);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void removeFile(String fileName){
+        LOG.info("Remove start");
+        s3client.deleteObject(bucketName, fileName);
+        LOG.info("Remove finishes");
+
     }
 
 

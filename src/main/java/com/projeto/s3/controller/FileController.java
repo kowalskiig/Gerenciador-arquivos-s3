@@ -1,9 +1,7 @@
 package com.projeto.s3.controller;
 
-import com.projeto.s3.dto.FileDTO;
 import com.projeto.s3.dto.FileResponseDTO;
 import com.projeto.s3.service.FileService;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,5 +22,10 @@ public class FileController {
         return ResponseEntity.ok(result);
 
 
+    }
+    @DeleteMapping(value = "/remove/{id}")
+    public ResponseEntity<Void> removeFile(@PathVariable Long id){
+        fileService.removeFile(id);
+        return ResponseEntity.noContent().build();
     }
 }

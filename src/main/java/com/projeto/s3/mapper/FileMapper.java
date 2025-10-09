@@ -8,8 +8,8 @@ public class FileMapper {
     public static FileResponseDTO toDto(File entity){
         return new FileResponseDTO(
                 entity.getId(),
-                entity.getFileUrl(),
                 entity.getFileName(),
+                entity.getFileUrl(),
                 entity.getUploadAt()
         );
 

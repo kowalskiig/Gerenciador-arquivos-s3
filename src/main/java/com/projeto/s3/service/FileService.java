@@ -1,10 +1,10 @@
 package com.projeto.s3.service;
 
-import com.projeto.s3.dto.FileDTO;
 import com.projeto.s3.dto.FileResponseDTO;
 import com.projeto.s3.entity.File;
 import com.projeto.s3.mapper.FileMapper;
 import com.projeto.s3.repository.FileRepository;
+import com.projeto.s3.service.model.UpdloadResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,12 +23,24 @@ public class FileService {
 
     @Transactional
     public FileResponseDTO uploadFile(MultipartFile file, String fileName) {
-        URL url = s3Service.uploadFile(file, fileName);
+        UpdloadResult result = s3Service.uploadFile(file, fileName);
+
         File enity = new File(
-                url.toString(),
-                fileName);
+                result.fileUrl().toString(),
+                result.fileName()
+        );
 
         enity = fileRepository.save(enity);
         return FileMapper.toDto(enity);
+    }
+
+    @Transactional
+    public void removeFile(Long id){
+        File file = fileRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Id não encontrado"));
+        s3Service.removeFile(file.getFileName());
+
+        fileRepository.deleteById(id);
+
     }
 }
