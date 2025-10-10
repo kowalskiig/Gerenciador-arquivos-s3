@@ -28,4 +28,10 @@ public class FileController {
         fileService.removeFile(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<FileResponseDTO> updateFile(@PathVariable Long id, @RequestParam("file") MultipartFile file){
+        FileResponseDTO result = fileService.updateFile(id, file);
+        return ResponseEntity.ok(result);
+    }
 }

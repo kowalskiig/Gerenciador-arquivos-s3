@@ -2,6 +2,7 @@ package com.projeto.s3.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.projeto.s3.service.model.UpdloadResult;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -48,6 +50,29 @@ public class S3Service {
         LOG.info("Remove start");
         s3client.deleteObject(bucketName, fileName);
         LOG.info("Remove finishes");
+
+    }
+
+    public URL updateFile(String fileName, MultipartFile file) {
+        try {
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(file.getSize());
+        metadata.setContentType(file.getContentType());
+
+        PutObjectRequest putObjectRequest = new PutObjectRequest(
+                bucketName,
+                fileName,
+                file.getInputStream(),
+                metadata
+        );
+
+        s3client.putObject(putObjectRequest);
+
+        return s3client.getUrl(bucketName, fileName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URL;
+import java.time.Instant;
 
 @Service
 public class FileService {
@@ -41,6 +42,21 @@ public class FileService {
         s3Service.removeFile(file.getFileName());
 
         fileRepository.deleteById(id);
+
+    }
+
+    @Transactional
+    public FileResponseDTO updateFile(Long id, MultipartFile file){
+        File entity = fileRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Id não encontrado"));
+
+        URL url = s3Service.updateFile(entity.getFileName(), file);
+
+        entity.setFileUrl(url.toString());
+        entity.setUploadAt(Instant.now());
+        entity = fileRepository.save(entity);
+
+        return FileMapper.toDto(entity);
 
     }
 }

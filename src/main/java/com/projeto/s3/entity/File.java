@@ -43,6 +43,10 @@ public class File {
         this.fileName = fileName;
     }
 
+    public void setUploadAt(Instant uploadAt) {
+        this.uploadAt = uploadAt;
+    }
+
     public void setFileUrl(String fileUrl) {
         this.fileUrl = fileUrl;
     }
