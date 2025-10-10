@@ -8,7 +8,7 @@
 ## 📖 Visão Geral  
 API REST desenvolvida em **Java + Spring Boot 3** para gerenciar o **upload, atualização e exclusão de arquivos** diretamente no **Amazon S3**.  
 
-O objetivo foi **explorar o serviço S3**, entendendo na prática como funcionam **políticas, permissões, grupos e usuários** dentro do ecossistema AWS e integrar o serviço a uma aplicação Spring Boot.  
+O objetivo foi explorar o serviço S3 e implementar uma solução de armazenamento de objetos desacoplada, entendendo na prática como funcionam políticas, permissões, grupos e usuários dentro do ecossistema AWS e integrar o serviço a uma aplicação Spring Boot.
 
 ---
 
@@ -25,7 +25,7 @@ O objetivo foi **explorar o serviço S3**, entendendo na prática como funcionam
 - Integração real com o **AWS S3** utilizando `AmazonS3Client`.  
 - Configuração de **credenciais AWS** via Beans no Spring Context.  
 - Implementação de **CRUD completo** para arquivos armazenados no S3.  
-- Entendimento sobre **IAM**, políticas e permissões da AWS.  
+- Uso do IAM (Identity and Access Management) para configurar políticas de bucket com acesso restrito apenas a operações CRUD no S3.
 
 ---
 
