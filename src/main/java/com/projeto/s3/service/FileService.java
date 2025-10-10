@@ -30,8 +30,7 @@ public class FileService {
 
         File entity = new File(
                 result.fileUrl().toString(),
-                result.fileName()
-        );
+                result.fileName());
 
         entity = fileRepository.save(entity);
         return FileMapper.toDto(entity);
@@ -39,9 +38,9 @@ public class FileService {
 
     @Transactional
     public void removeFile(Long id){
-        File file = fileRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Id não encontrado"));
-        s3Service.removeFile(file.getFileName());
+        File entity = existFileId(id);
+
+        s3Service.removeFile(entity.getFileName());
 
         fileRepository.deleteById(id);
 
@@ -49,15 +48,14 @@ public class FileService {
 
     @Transactional
     public FileResponseDTO updateFile(Long id, MultipartFile file){
-        File entity = fileRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Id não encontrado"));
+        File entity = existFileId(id);
 
         URL url = s3Service.updateFile(entity.getFileName(), file);
 
         entity.setFileUrl(url.toString());
         entity.setUploadAt(Instant.now());
-        entity = fileRepository.save(entity);
 
+        entity = fileRepository.save(entity);
         return FileMapper.toDto(entity);
 
     }
@@ -68,5 +66,10 @@ public class FileService {
 
         return files.stream().map(FileMapper::toDto).toList();
 
+    }
+
+    private File existFileId(Long id){
+        return fileRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Id não encontrado"));
     }
 }
