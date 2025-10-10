@@ -1,5 +1,6 @@
 package com.projeto.s3.exception.handler;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.projeto.s3.exception.ResourceNotFoundException;
 import com.projeto.s3.exception.dto.StandardError;
@@ -27,12 +28,25 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(status).body(error);
     }
     @ExceptionHandler(AmazonServiceException.class)
-    public ResponseEntity<StandardError> handleAmazonCleintException(ResourceNotFoundException e, HttpServletRequest request) {
+    public ResponseEntity<StandardError> handleAmazonServiceException(ResourceNotFoundException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError error = new StandardError(
                 Instant.now(),
                 status.value(),
-                "Error",
+                "AWS Exception",
+                e.getMessage(),
+                request.getRequestURI());
+
+        return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(AmazonClientException.class)
+    public ResponseEntity<StandardError> handleAmazonClientException(ResourceNotFoundException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError error = new StandardError(
+                Instant.now(),
+                status.value(),
+                "AWS Exception",
                 e.getMessage(),
                 request.getRequestURI());
 
