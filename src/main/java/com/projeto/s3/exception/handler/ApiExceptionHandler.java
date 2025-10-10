@@ -3,6 +3,7 @@ package com.projeto.s3.exception.handler;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.projeto.s3.exception.ResourceNotFoundException;
+import com.projeto.s3.exception.UnprocessableEntityException;
 import com.projeto.s3.exception.dto.StandardError;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,19 @@ public class ApiExceptionHandler {
                 Instant.now(),
                 status.value(),
                 "AWS Exception",
+                e.getMessage(),
+                request.getRequestURI());
+
+        return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(UnprocessableEntityException.class)
+    public ResponseEntity<StandardError> handleUnprocessableEntity(ResourceNotFoundException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        StandardError error = new StandardError(
+                Instant.now(),
+                status.value(),
+                "Unprocessable entity",
                 e.getMessage(),
                 request.getRequestURI());
 

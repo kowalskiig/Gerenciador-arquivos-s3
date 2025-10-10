@@ -5,7 +5,7 @@ import com.projeto.s3.entity.File;
 import com.projeto.s3.exception.ResourceNotFoundException;
 import com.projeto.s3.mapper.FileMapper;
 import com.projeto.s3.repository.FileRepository;
-import com.projeto.s3.service.model.UpdloadResult;
+import com.projeto.s3.service.model.UploadResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +26,7 @@ public class FileService {
 
     @Transactional
     public FileResponseDTO uploadFile(MultipartFile file, String fileName) {
-        UpdloadResult result = s3Service.uploadFile(file, fileName);
+        UploadResult result = s3Service.uploadFile(file, fileName);
 
         File entity = new File(
                 result.fileUrl().toString(),
