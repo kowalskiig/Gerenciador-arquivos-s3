@@ -3,6 +3,7 @@ package com.projeto.s3.service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.projeto.s3.exception.UnprocessableEntityException;
 import com.projeto.s3.service.model.UploadResult;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
@@ -41,7 +42,7 @@ public class S3Service {
             return new UploadResult(fileName, url);
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UnprocessableEntityException(e.getMessage());
         }
     }
 
@@ -69,7 +70,7 @@ public class S3Service {
 
         return s3client.getUrl(bucketName, fileName);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UnprocessableEntityException(e.getMessage());
         }
     }
 
