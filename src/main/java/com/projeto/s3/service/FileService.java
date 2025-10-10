@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URL;
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class FileService {
@@ -57,6 +58,14 @@ public class FileService {
         entity = fileRepository.save(entity);
 
         return FileMapper.toDto(entity);
+
+    }
+
+    @Transactional(readOnly = true)
+    public List<FileResponseDTO> findAllFiles(){
+        List<File> files = fileRepository.findAllFile();
+
+        return files.stream().map(FileMapper::toDto).toList();
 
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/file")
 public class FileController {
@@ -32,6 +34,12 @@ public class FileController {
     @PutMapping(value = "/update/{id}")
     public ResponseEntity<FileResponseDTO> updateFile(@PathVariable Long id, @RequestParam("file") MultipartFile file){
         FileResponseDTO result = fileService.updateFile(id, file);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<FileResponseDTO>> findAllFiles(){
+        List<FileResponseDTO> result = fileService.findAllFiles();
         return ResponseEntity.ok(result);
     }
 }
