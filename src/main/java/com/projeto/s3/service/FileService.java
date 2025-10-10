@@ -2,6 +2,7 @@ package com.projeto.s3.service;
 
 import com.projeto.s3.dto.FileResponseDTO;
 import com.projeto.s3.entity.File;
+import com.projeto.s3.exception.ResourceNotFoundException;
 import com.projeto.s3.mapper.FileMapper;
 import com.projeto.s3.repository.FileRepository;
 import com.projeto.s3.service.model.UpdloadResult;
@@ -39,7 +40,7 @@ public class FileService {
     @Transactional
     public void removeFile(Long id){
         File file = fileRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Id não encontrado"));
+                .orElseThrow(()-> new ResourceNotFoundException("Id não encontrado"));
         s3Service.removeFile(file.getFileName());
 
         fileRepository.deleteById(id);
@@ -49,7 +50,7 @@ public class FileService {
     @Transactional
     public FileResponseDTO updateFile(Long id, MultipartFile file){
         File entity = fileRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Id não encontrado"));
+                .orElseThrow(()-> new ResourceNotFoundException("Id não encontrado"));
 
         URL url = s3Service.updateFile(entity.getFileName(), file);
 
