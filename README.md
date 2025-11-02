@@ -1,52 +1,26 @@
-# File Manager — Integração com Amazon S3  
+# Gerenciador de arquivos com AWS S3
+## Objetivo do projeto
 
-[![My Skills](https://skillicons.dev/icons?i=java,spring,aws,git)](https://skillicons.dev)  
-![Status](https://img.shields.io/badge/Concluído-brightgreen)
-
----
-
-## 📖 Visão Geral  
-API REST desenvolvida em **Java + Spring Boot 3** para gerenciar o **upload, atualização e exclusão de arquivos** diretamente no **Amazon S3**.  
-
-O objetivo foi explorar o serviço S3 e implementar uma solução de armazenamento de objetos desacoplada, entendendo na prática como funcionam políticas, permissões, grupos e usuários dentro do ecossistema AWS e integrar o serviço a uma aplicação Spring Boot.
+- Sistema em que usuário pode realizar operações para gerenciar arquivos em Bucket do S3 na AWS.
+- Objetivo do projeto foi explorar esse serviço e integrar juntamente de uma aplicação Java com Spring Boot.
+- Entender mais sobre politicas de buckets, grupos de usuários, IAM, e  integração.
 
 ---
 
-## ⚙️ Funcionalidades  
-- Upload de arquivos para o S3.  
-- Atualização e exclusão de arquivos no S3.  
-- Persistência dos metadados no banco de dados.
-- Achar todos os arquivos ordenados. 
-- Logs e mensagens padronizadas para rastreabilidade.  
+## Tecnologias utilizadas:
+- Java
+- Spring Boot
+- AWS S3
+- AWS IAM
+- H2 DataBase
 
----
-
-## 🔧 Principais Aprendizados  
+## Minhas principais implementações e aprendizados nesse projeto  
 - Integração real com o **AWS S3** utilizando `AmazonS3Client`.  
 - Configuração de **credenciais AWS** via Beans no Spring Context.  
 - Implementação de **CRUD completo** para arquivos armazenados no S3.  
 - Uso do IAM (Identity and Access Management) para configurar políticas de bucket com acesso restrito apenas a operações CRUD no S3.
 
 ---
-
-## 🧰 Tecnologias Utilizadas  
-- **Java 21**  
-- **Spring Boot 3**  
-- **Spring Data JPA**  
-- **AWS S3 (SDK Java)**  
-
----
-
-## 🧩 Estrutura do Projeto 
-```
-├── controller # Endpoints REST
-├── service # Regras de negócio e integração com AWS S3
-├── entity # Entidade File
-├── config # Configurações
-├── dto # Objetos de transferência de dados
-├── repository # Persistência (Spring Data JPA)
-└── exception # Exceções personalizadas e handler global
-```
 
 ## 🧾 Endpoints  
 
@@ -57,5 +31,13 @@ O objetivo foi explorar o serviço S3 e implementar uma solução de armazenamen
 | **DELETE** | `/remove/{id}` | Remove o arquivo do S3 e do banco de dados |
 | **GET** | `/` | Lista todos os arquivos cadastrados de forma ordenada |
 
-## 🧠 Aprendizado  
-Esse projeto me ajudou a compreender de forma prática como o **Amazon S3** lida com **armazenamento, autenticação e permissões**, além de aplicar esses conceitos em uma API REST funcional utilizando Spring Boot.
+## Visão geral  
+- Projeto ótimo para explorar nova tecnologia, simbolo da minha proatividade e curiosidade. Além de entender mais como o mundo de Cloud funciona na prática com aplicões Backend.
+- Focado no estudo e aprendizado prático.
+
+<p>
+  <a href="https://www.linkedin.com/in/gustavokowalski/" target="_blank" style="margin-right: 20px;">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+
+</p>
